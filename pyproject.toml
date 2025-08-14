@@ -17,6 +17,9 @@ classifiers = [
     "Programming Language :: Python :: 3.13",
     "Topic :: Software Development :: Libraries :: Python Modules",
 ]
+dependencies = [
+    "streamlit>=1.48.1",
+]
 
 [project.urls]
 Homepage = "https://Kopfstein.github.io/double-agent/"
@@ -108,4 +111,3 @@ skip_empty = true
 [tool.coverage.run]
 branch = true
 source = ["src"]
-
