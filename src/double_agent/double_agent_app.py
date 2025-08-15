@@ -1,7 +1,7 @@
 import os
-import sys
+
 import streamlit as st
-from smolagents import CodeAgent, OpenAIServerModel
+from smolagents import CodeAgent, DuckDuckGoSearchTool, OpenAIServerModel
 
 # Check if API key is present
 if not os.getenv("OPENROUTER_API_KEY"):
@@ -10,17 +10,17 @@ if not os.getenv("OPENROUTER_API_KEY"):
 
 # Initialize a model
 model = OpenAIServerModel(
-    model_id = "deepseek/deepseek-r1-0528",
-    api_base = "https://openrouter.ai/api/v1",
-    api_key = os.getenv("OPENROUTER_API_KEY"),
+    model_id="deepseek/deepseek-r1-0528",
+    api_base="https://openrouter.ai/api/v1",
+    api_key=os.getenv("OPENROUTER_API_KEY"),
 )
 
 # Create agent without tools
 agent = CodeAgent(
     model=model,
-    name="Double Agent",
+    name="double_agent",
     description="AI agent helping users to explore opposing views.",
-    tools=[],
+    tools=[DuckDuckGoSearchTool()],
 )
 
 # Follow tutorial: https://docs.streamlit.io/develop/tutorials/chat-and-llm-apps/build-conversational-apps
