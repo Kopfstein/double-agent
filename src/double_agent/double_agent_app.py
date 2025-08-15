@@ -1,7 +1,12 @@
 import os
+import sys
 import streamlit as st
 from smolagents import CodeAgent, OpenAIServerModel
 
+# Check if API key is present
+if not os.getenv("OPENROUTER_API_KEY"):
+    st.error("OPENROUTER_API_KEY environment variable is not set. Please set it and restart the application.")
+    st.stop()
 
 # Initialize a model
 model = OpenAIServerModel(
