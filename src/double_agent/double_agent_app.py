@@ -11,7 +11,8 @@ if not os.getenv("OPENROUTER_API_KEY"):
 
 # Initialize a model
 model = OpenAIServerModel(
-    model_id="deepseek/deepseek-r1-0528",
+    # model_id="deepseek/deepseek-r1-0528",
+    model_id="qwen/qwen3-235b-a22b-2507",
     api_base="https://openrouter.ai/api/v1",
     api_key=os.getenv("OPENROUTER_API_KEY"),
 )
