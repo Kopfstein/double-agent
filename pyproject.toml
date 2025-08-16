@@ -53,6 +53,9 @@ python-version = "3.9"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+filterwarnings = [
+    "ignore:Thread 'MainThread': missing ScriptRunContext:UserWarning",
+]
 
 [tool.ruff]
 target-version = "py39"
