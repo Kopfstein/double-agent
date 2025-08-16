@@ -3,10 +3,11 @@ import os
 
 import streamlit as st
 
+
 def initialize_agent():
     """Initialize the agent only when needed."""
     from smolagents import CodeAgent, DuckDuckGoSearchTool, OpenAIServerModel
-    
+
     # Initialize a model
     model = OpenAIServerModel(
         # model_id="deepseek/deepseek-r1-0528",
@@ -23,6 +24,7 @@ def initialize_agent():
         tools=[DuckDuckGoSearchTool()],
     )
     return agent
+
 
 # Check if API key is present
 if not os.getenv("OPENROUTER_API_KEY"):
@@ -53,7 +55,7 @@ if prompt := st.chat_input("Enter your instructions"):
     # Initialize agent only when needed
     if "agent" not in st.session_state:
         st.session_state.agent = initialize_agent()
-    
+
     response = st.session_state.agent.run(prompt)
 
     # Display assistant response in chat message container

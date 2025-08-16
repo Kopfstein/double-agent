@@ -1,6 +1,7 @@
 # Unit tests for Double Agent Streamlit app
 import os
 from unittest.mock import patch
+
 from streamlit.testing.v1 import AppTest
 
 
