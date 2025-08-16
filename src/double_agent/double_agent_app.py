@@ -57,9 +57,7 @@ with st.sidebar:
     model_options = [
         "qwen/qwen3-235b-a22b-2507",
         "deepseek/deepseek-r1-0528",
-        "anthropic/claude-3.5-sonnet",
-        "openai/gpt-4o",
-        "meta-llama/llama-3.3-70b-instruct",
+        "anthropic/claude-sonnet-4",
     ]
 
     selected_model = st.selectbox(
