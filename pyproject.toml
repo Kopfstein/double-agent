@@ -5,17 +5,20 @@ description = "AI agent for finding opposing viewpoints."
 authors = [{ name = "Kopfstein", email = "nobody@nobody.org" }]
 readme = "README.md"
 keywords = ['python']
-requires-python = ">=3.9,<4.0"
+requires-python = ">=3.10,<4.0"
 classifiers = [
     "Intended Audience :: Developers",
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
     "Topic :: Software Development :: Libraries :: Python Modules",
+]
+dependencies = [
+    "smolagents[openai,telemetry,toolkit]>=1.21.1",
+    "streamlit>=1.48.1",
 ]
 
 [project.urls]
@@ -50,6 +53,9 @@ python-version = "3.9"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+filterwarnings = [
+    "ignore:Thread.*missing ScriptRunContext:UserWarning",
+]
 
 [tool.ruff]
 target-version = "py39"
@@ -108,4 +114,3 @@ skip_empty = true
 [tool.coverage.run]
 branch = true
 source = ["src"]
-

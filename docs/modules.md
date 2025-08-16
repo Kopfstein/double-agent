@@ -1,1 +1,1 @@
-::: double_agent.foo
+::: double_agent.double_agent_app

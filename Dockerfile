@@ -2,6 +2,9 @@
 FROM python:3.12-slim
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /bin/uv
 
+# Set environment variables
+ENV PORT=7860
+
 # Install dependencies
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
@@ -36,5 +39,5 @@ COPY --chown=user:user . /app
 RUN uv sync --frozen
 
 # Expose the port and run the server
-EXPOSE 7860
-CMD ["uv", "run", "python", "-m", "http.server", "7860", "-d", "./double_agent/"]
+EXPOSE $PORT
+CMD ["uv", "run", "streamlit", "run", "./double_agent/", "--server.port", "$PORT"]
