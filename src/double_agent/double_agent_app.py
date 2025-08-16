@@ -1,7 +1,11 @@
 # Double Agent Streamlit app
 import os
+from typing import TYPE_CHECKING
 
 import streamlit as st
+
+if TYPE_CHECKING:
+    from smolagents import CodeAgent
 
 
 def initialize_agent(model_id: str) -> "CodeAgent":
