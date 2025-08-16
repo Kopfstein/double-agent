@@ -1,14 +1,11 @@
 # Double Agent Streamlit app
 import os
-from typing import TYPE_CHECKING
+from typing import Any
 
 import streamlit as st
 
-if TYPE_CHECKING:
-    from smolagents import CodeAgent
 
-
-def initialize_agent(model_id: str) -> "CodeAgent":
+def initialize_agent(model_id: str) -> Any:
     """Initialize the agent with the specified model.
 
     Parameters
@@ -18,7 +15,7 @@ def initialize_agent(model_id: str) -> "CodeAgent":
 
     Returns
     -------
-    CodeAgent
+    Any
         A configured CodeAgent instance with the specified model and DuckDuckGo search tool.
 
     Raises
