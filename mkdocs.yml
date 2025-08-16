@@ -9,6 +9,9 @@ copyright: Maintained by <a href="https://Kopfstein.com">Kopfstein</a>.
 
 nav:
   - Home: index.md
+  - About:
+    - License: LICENSE.md
+    - CONVENTIONS.md
   - Modules: modules.md
 plugins:
   - search

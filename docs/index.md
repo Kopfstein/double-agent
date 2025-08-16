@@ -5,4 +5,4 @@
 [![Commit activity](https://img.shields.io/github/commit-activity/m/Kopfstein/double-agent)](https://img.shields.io/github/commit-activity/m/Kopfstein/double-agent)
 [![License](https://img.shields.io/github/license/Kopfstein/double-agent)](https://img.shields.io/github/license/Kopfstein/double-agent)
 
-AI agent for finding opposing viewpoints.
+**AI agent for finding opposing viewpoints.**

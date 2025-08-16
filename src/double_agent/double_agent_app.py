@@ -1,17 +1,33 @@
 # Double Agent Streamlit app
 import os
+from typing import Any
 
 import streamlit as st
 
 
-def initialize_agent():
-    """Initialize the agent only when needed."""
+def initialize_agent(model_id: str) -> Any:
+    """Initialize the agent with the specified model.
+
+    Parameters
+    ----------
+    model_id : str
+        The model identifier to use for the agent (e.g., "qwen/qwen3-235b-a22b-2507").
+
+    Returns
+    -------
+    Any
+        A configured CodeAgent instance with the specified model and DuckDuckGo search tool.
+
+    Raises
+    ------
+    Exception
+        If the OPENROUTER_API_KEY environment variable is not set or if model initialization fails.
+    """
     from smolagents import CodeAgent, DuckDuckGoSearchTool, OpenAIServerModel
 
     # Initialize a model
     model = OpenAIServerModel(
-        # model_id="deepseek/deepseek-r1-0528",
-        model_id="qwen/qwen3-235b-a22b-2507",
+        model_id=model_id,
         api_base="https://openrouter.ai/api/v1",
         api_key=os.getenv("OPENROUTER_API_KEY"),
     )
@@ -35,6 +51,28 @@ if not os.getenv("OPENROUTER_API_KEY"):
 
 st.title("Double Agent")
 
+# Sidebar for model selection
+with st.sidebar:
+    st.header("Model Selection")
+    model_options = [
+        "qwen/qwen3-235b-a22b-2507",
+        "deepseek/deepseek-r1-0528",
+        "anthropic/claude-sonnet-4",
+    ]
+
+    selected_model = st.selectbox(
+        "Choose a model:", model_options, index=0, help="Select the AI model to use for the conversation"
+    )
+
+    # Clear agent if model changes
+    if "current_model" not in st.session_state:
+        st.session_state.current_model = selected_model
+    elif st.session_state.current_model != selected_model:
+        st.session_state.current_model = selected_model
+        if "agent" in st.session_state:
+            del st.session_state.agent
+        st.rerun()
+
 # Initialize history
 if "messages" not in st.session_state:
     st.session_state.messages = []
@@ -54,7 +92,7 @@ if prompt := st.chat_input("Enter your instructions"):
 
     # Initialize agent only when needed
     if "agent" not in st.session_state:
-        st.session_state.agent = initialize_agent()
+        st.session_state.agent = initialize_agent(selected_model)
 
     response = st.session_state.agent.run(prompt)
 
