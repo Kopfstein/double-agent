@@ -4,8 +4,24 @@ import os
 import streamlit as st
 
 
-def initialize_agent(model_id: str):
-    """Initialize the agent with the specified model."""
+def initialize_agent(model_id: str) -> "CodeAgent":
+    """Initialize the agent with the specified model.
+    
+    Parameters
+    ----------
+    model_id : str
+        The model identifier to use for the agent (e.g., "qwen/qwen3-235b-a22b-2507").
+        
+    Returns
+    -------
+    CodeAgent
+        A configured CodeAgent instance with the specified model and DuckDuckGo search tool.
+        
+    Raises
+    ------
+    Exception
+        If the OPENROUTER_API_KEY environment variable is not set or if model initialization fails.
+    """
     from smolagents import CodeAgent, DuckDuckGoSearchTool, OpenAIServerModel
 
     # Initialize a model
