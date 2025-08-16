@@ -6,17 +6,17 @@ import streamlit as st
 
 def initialize_agent(model_id: str) -> "CodeAgent":
     """Initialize the agent with the specified model.
-    
+
     Parameters
     ----------
     model_id : str
         The model identifier to use for the agent (e.g., "qwen/qwen3-235b-a22b-2507").
-        
+
     Returns
     -------
     CodeAgent
         A configured CodeAgent instance with the specified model and DuckDuckGo search tool.
-        
+
     Raises
     ------
     Exception
@@ -60,14 +60,11 @@ with st.sidebar:
         "openai/gpt-4o",
         "meta-llama/llama-3.3-70b-instruct",
     ]
-    
+
     selected_model = st.selectbox(
-        "Choose a model:",
-        model_options,
-        index=0,
-        help="Select the AI model to use for the conversation"
+        "Choose a model:", model_options, index=0, help="Select the AI model to use for the conversation"
     )
-    
+
     # Clear agent if model changes
     if "current_model" not in st.session_state:
         st.session_state.current_model = selected_model
