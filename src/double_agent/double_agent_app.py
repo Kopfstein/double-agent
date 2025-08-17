@@ -2,7 +2,10 @@
 import os
 from typing import Any
 
+import langfuse
 import streamlit as st
+from dotenv import load_dotenv
+from openinference.instrumentation.smolagents import SmolagentsInstrumentor
 
 
 def initialize_agent(model_id: str) -> Any:
@@ -42,12 +45,22 @@ def initialize_agent(model_id: str) -> Any:
     return agent
 
 
+# Load environment variables from .env file\
+load_dotenv()
+
 # Check if API key is present
 if not os.getenv("OPENROUTER_API_KEY"):
     st.error("OPENROUTER_API_KEY environment variable is not set. Please set it and restart the application.")
     st.stop()
 
-# Follow tutorial: https://docs.streamlit.io/develop/tutorials/chat-and-llm-apps/build-conversational-apps
+# Initialize Langfuse client
+langfuse_client = langfuse.get_client()
+if not langfuse_client.auth_check():
+    st.error("Failed to initialize Langfuse client. Please check your configuration.")
+    st.stop()
+
+# Initialize Smolagents instrumentation
+SmolagentsInstrumentor().instrument()
 
 st.title("Double Agent")
 
@@ -56,6 +69,7 @@ with st.sidebar:
     st.header("Model Selection")
     model_options = [
         "qwen/qwen3-235b-a22b-2507",
+        "mistralai/mistral-small-3.2-24b-instruct",
         "deepseek/deepseek-r1-0528",
         "anthropic/claude-sonnet-4",
     ]
