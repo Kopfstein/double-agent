@@ -219,6 +219,15 @@ wheels = [
 ]
 
 [[package]]
+name = "backoff"
+version = "2.2.1"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/47/d7/5bbeb12c44d7c4f2fb5b56abce497eb5ed9f34d85701de869acedd602619/backoff-2.2.1.tar.gz", hash = "sha256:03f829f5bb1923180821643f8753b0502c3b682293992485b0eef2807afa5cba", size = 17001, upload-time = "2022-10-05T19:19:32.061Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/df/73/b6e24bd22e6720ca8ee9a85a0c4a2971af8497d8f3193fa05390cbd46e09/backoff-2.2.1-py3-none-any.whl", hash = "sha256:63579f9a0628e06278f7e47b7d7d5b6ce20dc65c5e96a6f3ca99a6adca0396e8", size = 15148, upload-time = "2022-10-05T19:19:30.546Z" },
+]
+
+[[package]]
 name = "backrefs"
 version = "5.9"
 source = { registry = "https://pypi.org/simple" }
@@ -570,20 +579,6 @@ wheels = [
 ]
 
 [[package]]
-name = "ddgs"
-version = "9.5.2"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "click" },
-    { name = "lxml" },
-    { name = "primp" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/67/65/6c5c1b2acf2a902b340c9a0df5051a4af2384a952bc29407c4ab53c267eb/ddgs-9.5.2.tar.gz", hash = "sha256:1011cb0ad2329163c9f92b61231c654a8abe0bfdc9a3877dbf45bf41bf6a11ba", size = 32585, upload-time = "2025-08-05T21:11:51.478Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/ff/e2/8feccc47acfc1ada5e63d037aa5f345eb92503d851b0c5e461bf05fbdfa8/ddgs-9.5.2-py3-none-any.whl", hash = "sha256:3685246763426f6bca06db709dc4464db7940b8a418b56880f0ae41c3480e0c3", size = 36350, upload-time = "2025-08-05T21:11:50.177Z" },
-]
-
-[[package]]
 name = "deptry"
 version = "0.23.1"
 source = { registry = "https://pypi.org/simple" }
@@ -645,6 +640,9 @@ name = "double-agent"
 version = "0.0.1"
 source = { editable = "." }
 dependencies = [
+    { name = "langfuse" },
+    { name = "openinference-instrumentation-smolagents" },
+    { name = "python-dotenv" },
     { name = "smolagents", extra = ["openai", "telemetry", "toolkit"] },
     { name = "streamlit" },
 ]
@@ -665,7 +663,10 @@ dev = [
 
 [package.metadata]
 requires-dist = [
-    { name = "smolagents", extras = ["openai", "telemetry", "toolkit"], specifier = ">=1.21.1" },
+    { name = "langfuse", specifier = ">=3.2.7" },
+    { name = "openinference-instrumentation-smolagents", specifier = ">=0.1.14" },
+    { name = "python-dotenv", specifier = ">=1.1.1" },
+    { name = "smolagents", extras = ["openai", "telemetry", "toolkit"], specifier = "==1.19.0" },
     { name = "streamlit", specifier = ">=1.48.1" },
 ]
 
@@ -681,6 +682,20 @@ dev = [
     { name = "ruff", specifier = ">=0.11.5" },
     { name = "tox-uv", specifier = ">=1.11.3" },
     { name = "ty", specifier = ">=0.0.1a16" },
+]
+
+[[package]]
+name = "duckduckgo-search"
+version = "8.1.1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "click" },
+    { name = "lxml" },
+    { name = "primp" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/10/ef/07791a05751e6cc9de1dd49fb12730259ee109b18e6d097e25e6c32d5617/duckduckgo_search-8.1.1.tar.gz", hash = "sha256:9da91c9eb26a17e016ea1da26235d40404b46b0565ea86d75a9f78cc9441f935", size = 22868, upload-time = "2025-07-06T15:30:59.73Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/db/72/c027b3b488b1010cf71670032fcf7e681d44b81829d484bb04e31a949a8d/duckduckgo_search-8.1.1-py3-none-any.whl", hash = "sha256:f48adbb06626ee05918f7e0cef3a45639e9939805c4fc179e68c48a12f1b5062", size = 18932, upload-time = "2025-07-06T15:30:58.339Z" },
 ]
 
 [[package]]
@@ -1148,6 +1163,26 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/bf/ce/46fbd9c8119cfc3581ee5643ea49464d168028cfb5caff5fc0596d0cf914/jsonschema_specifications-2025.4.1.tar.gz", hash = "sha256:630159c9f4dbea161a6a2205c3011cc4f18ff381b189fff48bb39b9bf26ae608", size = 15513, upload-time = "2025-04-23T12:34:07.418Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/01/0e/b27cdbaccf30b890c40ed1da9fd4a3593a5cf94dae54fb34f8a4b74fcd3f/jsonschema_specifications-2025.4.1-py3-none-any.whl", hash = "sha256:4653bffbd6584f7de83a67e0d620ef16900b390ddc7939d56684d6c81e33f1af", size = 18437, upload-time = "2025-04-23T12:34:05.422Z" },
+]
+
+[[package]]
+name = "langfuse"
+version = "3.2.7"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "backoff" },
+    { name = "httpx" },
+    { name = "opentelemetry-api" },
+    { name = "opentelemetry-exporter-otlp-proto-http" },
+    { name = "opentelemetry-sdk" },
+    { name = "packaging" },
+    { name = "pydantic" },
+    { name = "requests" },
+    { name = "wrapt" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/c3/7e/51df7a35982094b46952b3e83f347642cee730367ff852379d72fdf6b78a/langfuse-3.2.7.tar.gz", hash = "sha256:1a908eb0f7951054876299d6f369826bfab344f417d04898cdb4d8992998bbb6", size = 153495, upload-time = "2025-08-15T16:11:08.444Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/cf/02/79501d7ca11e8aca8cffb6cf53190f398f8f40213fcceaa15bda47b5e825/langfuse-3.2.7-py3-none-any.whl", hash = "sha256:bd6cdc4d4760b7159f9aba602284dd33fba61970c876abb54050ef39f07ea760", size = 300037, upload-time = "2025-08-15T16:11:06.167Z" },
 ]
 
 [[package]]
@@ -2909,7 +2944,7 @@ wheels = [
 
 [[package]]
 name = "smolagents"
-version = "1.21.1"
+version = "1.19.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "huggingface-hub" },
@@ -2919,9 +2954,9 @@ dependencies = [
     { name = "requests" },
     { name = "rich" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/31/a9/f50c7e921675c7295fb4e80795b3cfd4baa8f3ebd0d3c5d7e9d4221f6e30/smolagents-1.21.1.tar.gz", hash = "sha256:bd8a26868cb294949aa8ced954f90f1f1ece96f417fc60c6be1ac6d2f762f130", size = 202388, upload-time = "2025-08-11T10:49:05.942Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/0a/84/685cc60ebf97499f8066e0645983fe4697ff6fc5edba03d0b6be9c350a51/smolagents-1.19.0.tar.gz", hash = "sha256:e05426d59950f6ee4d082b5704f3831c17dbef11fa739a1dfaae0ccbaee175fc", size = 186042, upload-time = "2025-06-24T08:42:46.413Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/12/ec/ad3f2e88aac2b143bb1c7c301a8d248d42f710a5d8113ad73ded146f6be5/smolagents-1.21.1-py3-none-any.whl", hash = "sha256:9490bc16a1efd326132daef4add6c09099aa5d652777332239f62d3b75f55761", size = 145419, upload-time = "2025-08-11T10:49:03.915Z" },
+    { url = "https://files.pythonhosted.org/packages/6f/5c/2e1207d9dc17e31dfe2c67af34b3379f767351ef3cb55fd88677196439a4/smolagents-1.19.0-py3-none-any.whl", hash = "sha256:e33be79a85059613a771e29af8f24f1ed2f0d0d84c02bb1c503d655f1de5f4d3", size = 138209, upload-time = "2025-06-24T08:42:44.874Z" },
 ]
 
 [package.optional-dependencies]
@@ -2935,7 +2970,7 @@ telemetry = [
     { name = "opentelemetry-sdk" },
 ]
 toolkit = [
-    { name = "ddgs" },
+    { name = "duckduckgo-search" },
     { name = "markdownify" },
 ]
 
