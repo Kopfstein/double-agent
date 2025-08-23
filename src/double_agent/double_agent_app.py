@@ -7,6 +7,8 @@ import streamlit as st
 from dotenv import load_dotenv
 from openinference.instrumentation.smolagents import SmolagentsInstrumentor
 
+from .agent_chat import AgentChatInterface
+
 
 def initialize_agent(model_id: str) -> Any:
     """Initialize the agent with the specified model.
@@ -87,31 +89,19 @@ with st.sidebar:
             del st.session_state.agent
         st.rerun()
 
-# Initialize history
-if "messages" not in st.session_state:
-    st.session_state.messages = []
+    st.header("Chat Controls")
+    if st.button("Clear Chat History"):
+        chat_interface = AgentChatInterface("double_agent_chat")
+        chat_interface.clear_chat()
+        st.rerun()
 
-# Display chat messages from history on app rerun
-for message in st.session_state.messages:
-    with st.chat_message(message["role"]):
-        st.markdown(message["content"])
+# Initialize chat interface
+chat_interface = AgentChatInterface("double_agent_chat")
 
-# React to user input
-if prompt := st.chat_input("Enter your instructions"):
-    # Display user message in chat message container
-    with st.chat_message("user"):
-        st.markdown(prompt)
-    # Add user message to chat history
-    st.session_state.messages.append({"role": "user", "content": prompt})
-
-    # Initialize agent only when needed
-    if "agent" not in st.session_state:
+# Initialize agent only when needed
+if "agent" not in st.session_state:
+    with st.spinner("Initializing agent..."):
         st.session_state.agent = initialize_agent(selected_model)
 
-    response = st.session_state.agent.run(prompt)
-
-    # Display assistant response in chat message container
-    with st.chat_message("assistant"):
-        st.markdown(response)
-    # Add assistant response to chat history
-    st.session_state.messages.append({"role": "assistant", "content": response})
+# Handle chat interaction
+chat_interface.handle_chat_interaction(st.session_state.agent)
