@@ -63,66 +63,68 @@ class AgentChatInterface:
         messages = st.session_state[f"{self.session_key}_messages"]
         messages.append({"role": "user", "content": content})
 
-    def run_agent_with_steps(self, agent: Any, prompt: str) -> str:
-        """Run agent and display steps in real-time.
-
-        Parameters
-        ----------
-        agent : Any
-            The agent instance to run
-        prompt : str
-            User prompt/instructions
-
+    def start_agent_response(self) -> tuple:
+        """Start displaying an agent response with steps container.
+        
         Returns
         -------
-        str
-            Final agent response
+        tuple
+            (response_container, steps_container) for updating the UI
         """
-        # Create containers for real-time updates
-        with st.chat_message("assistant"):
+        chat_container = st.chat_message("assistant")
+        with chat_container:
             response_container = st.empty()
             steps_container = st.expander("Agent Steps", expanded=True)
+            return response_container, steps_container
 
-            # Initialize steps tracking
-            agent_steps = []
+    def update_agent_step(self, steps_container, step_text: str) -> None:
+        """Update the agent steps display.
+        
+        Parameters
+        ----------
+        steps_container
+            Streamlit container for steps
+        step_text : str
+            Text to display for current step
+        """
+        with steps_container:
+            st.write(f"🔍 {step_text}")
 
-            # Show initial status
-            with steps_container:
-                status_placeholder = st.empty()
-                status_placeholder.write("🤖 Agent is thinking...")
+    def show_agent_error(self, steps_container, error_msg: str) -> None:
+        """Show an error in the agent steps.
+        
+        Parameters
+        ----------
+        steps_container
+            Streamlit container for steps
+        error_msg : str
+            Error message to display
+        """
+        with steps_container:
+            st.error(f"❌ {error_msg}")
 
-            try:
-                # Run the agent (this is a simplified version - you may need to modify
-                # based on how smolagents exposes step-by-step execution)
-                with steps_container:
-                    step_placeholder = st.empty()
-                    step_placeholder.write("🔍 Processing your request...")
-                    agent_steps.append("Processing your request...")
+    def show_agent_success(self, steps_container) -> None:
+        """Show success status in agent steps.
+        
+        Parameters
+        ----------
+        steps_container
+            Streamlit container for steps
+        """
+        with steps_container:
+            st.write("✅ Task completed successfully!")
 
-                # Execute agent
-                response = agent.run(prompt)
-
-                # Update final status
-                with steps_container:
-                    step_placeholder.write("✅ Task completed successfully!")
-                    agent_steps.append("Task completed successfully!")
-
-                # Display final response
-                response_container.markdown(response)
-
-            except Exception as e:
-                error_msg = f"❌ Error occurred: {e!s}"
-                with steps_container:
-                    st.error(error_msg)
-                agent_steps.append(error_msg)
-
-                error_response = f"I encountered an error: {e!s}"
-                response_container.markdown(error_response)
-                return error_response
-
-            finally:
-                # Store steps for history
-                st.session_state[f"{self.session_key}_agent_steps"] = agent_steps
+    def display_final_response(self, response_container, response: str) -> None:
+        """Display the final agent response.
+        
+        Parameters
+        ----------
+        response_container
+            Streamlit container for the response
+        response : str
+            The agent's response text
+        """
+        response_container.markdown(response)
 
     def add_assistant_message(self, content: str, steps: Optional[list] = None) -> None:
         """Add assistant message to chat history.
@@ -147,25 +149,21 @@ class AgentChatInterface:
         st.session_state[f"{self.session_key}_messages"] = []
         st.session_state[f"{self.session_key}_agent_steps"] = []
 
-    def handle_chat_interaction(self, agent: Any) -> None:
+    def handle_chat_interaction(self, agent_runner_callback) -> None:
         """Handle complete chat interaction flow.
-
+        
         Parameters
         ----------
-        agent : Any
-            The agent instance to use for responses
+        agent_runner_callback : callable
+            Function that takes (agent_interface, prompt) and runs the agent
         """
         # Display chat history
         self.display_chat_history()
-
+        
         # Get user input
         if prompt := self.get_user_input():
             # Add user message
             self.add_user_message(prompt)
-
-            # Run agent and get response with steps
-            response = self.run_agent_with_steps(agent, prompt)
-
-            # Add assistant response to history
-            agent_steps = st.session_state.get(f"{self.session_key}_agent_steps", [])
-            self.add_assistant_message(response, agent_steps)
+            
+            # Run agent via callback
+            agent_runner_callback(self, prompt)
