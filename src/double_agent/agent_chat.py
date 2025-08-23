@@ -110,8 +110,6 @@ class AgentChatInterface:
                 # Display final response
                 response_container.markdown(response)
 
-                return response
-
             except Exception as e:
                 error_msg = f"❌ Error occurred: {e!s}"
                 with steps_container:
