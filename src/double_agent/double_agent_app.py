@@ -7,7 +7,7 @@ import streamlit as st
 from dotenv import load_dotenv
 from openinference.instrumentation.smolagents import SmolagentsInstrumentor
 
-from .agent_chat import AgentChatInterface
+from double_agent.agent_chat import AgentChatInterface
 
 
 def initialize_agent(model_id: str) -> Any:
