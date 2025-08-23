@@ -49,7 +49,7 @@ def initialize_agent(model_id: str) -> Any:
 
 def run_agent_with_ui_updates(chat_interface: AgentChatInterface, prompt: str) -> None:
     """Run agent and update UI in real-time.
-    
+
     Parameters
     ----------
     chat_interface : AgentChatInterface
@@ -59,40 +59,40 @@ def run_agent_with_ui_updates(chat_interface: AgentChatInterface, prompt: str) -
     """
     # Start agent response display
     response_container, steps_container = chat_interface.start_agent_response()
-    
+
     # Initialize steps tracking
     agent_steps = []
-    
+
     # Show initial status
     chat_interface.update_agent_step(steps_container, "Agent is thinking...")
     agent_steps.append("Agent is thinking...")
-    
+
     try:
         # Show processing step
         chat_interface.update_agent_step(steps_container, "Processing your request...")
         agent_steps.append("Processing your request...")
-        
+
         # Execute agent
         response = st.session_state.agent.run(prompt)
-        
+
         # Show success
         chat_interface.show_agent_success(steps_container)
         agent_steps.append("Task completed successfully!")
-        
+
         # Display final response
         chat_interface.display_final_response(response_container, response)
-        
+
         # Add to chat history
         chat_interface.add_assistant_message(response, agent_steps)
-        
+
     except Exception as e:
-        error_msg = f"Error occurred: {str(e)}"
+        error_msg = f"Error occurred: {e!s}"
         chat_interface.show_agent_error(steps_container, error_msg)
         agent_steps.append(error_msg)
-        
-        error_response = f"I encountered an error: {str(e)}"
+
+        error_response = f"I encountered an error: {e!s}"
         chat_interface.display_final_response(response_container, error_response)
-        
+
         # Add error to chat history
         chat_interface.add_assistant_message(error_response, agent_steps)
 

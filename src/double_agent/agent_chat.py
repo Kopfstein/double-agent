@@ -1,4 +1,4 @@
-from typing import Any, Optional
+from typing import Optional
 
 import streamlit as st
 
@@ -65,7 +65,7 @@ class AgentChatInterface:
 
     def start_agent_response(self) -> tuple:
         """Start displaying an agent response with steps container.
-        
+
         Returns
         -------
         tuple
@@ -79,7 +79,7 @@ class AgentChatInterface:
 
     def update_agent_step(self, steps_container, step_text: str) -> None:
         """Update the agent steps display.
-        
+
         Parameters
         ----------
         steps_container
@@ -92,7 +92,7 @@ class AgentChatInterface:
 
     def show_agent_error(self, steps_container, error_msg: str) -> None:
         """Show an error in the agent steps.
-        
+
         Parameters
         ----------
         steps_container
@@ -105,7 +105,7 @@ class AgentChatInterface:
 
     def show_agent_success(self, steps_container) -> None:
         """Show success status in agent steps.
-        
+
         Parameters
         ----------
         steps_container
@@ -116,7 +116,7 @@ class AgentChatInterface:
 
     def display_final_response(self, response_container, response: str) -> None:
         """Display the final agent response.
-        
+
         Parameters
         ----------
         response_container
@@ -151,7 +151,7 @@ class AgentChatInterface:
 
     def handle_chat_interaction(self, agent_runner_callback) -> None:
         """Handle complete chat interaction flow.
-        
+
         Parameters
         ----------
         agent_runner_callback : callable
@@ -159,11 +159,11 @@ class AgentChatInterface:
         """
         # Display chat history
         self.display_chat_history()
-        
+
         # Get user input
         if prompt := self.get_user_input():
             # Add user message
             self.add_user_message(prompt)
-            
+
             # Run agent via callback
             agent_runner_callback(self, prompt)
